@@ -7,8 +7,8 @@
     <ProjectGuid>{E1ACAFA7-76B4-4688-9122-C48AFD3BEC44}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConfigLoader.Tests</RootNamespace>
-    <AssemblyName>ConfigLoader.Tests</AssemblyName>
+    <RootNamespace>ConfigLoader.UnitTests</RootNamespace>
+    <AssemblyName>ConfigLoader.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>6610b08a</NuGetPackageImportStamp>
@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="AppSettingsTests.cs" />
     <Compile Include="EnvironmentTests.cs" />
+    <Compile Include="JsonTests.cs" />
     <Compile Include="TestConfig.cs" />
     <Compile Include="TestConfigEnvVarsAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,7 +61,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
+    <None Include="testdata.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

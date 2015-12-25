@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigLoader", "ConfigLoader\ConfigLoader.csproj", "{E70751A0-A85D-4C1F-99AC-51784C31F4D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigLoader.Tests", "ConfigLoader.Tests\ConfigLoader.Tests.csproj", "{E1ACAFA7-76B4-4688-9122-C48AFD3BEC44}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2A373E15-A270-43D7-A6BA-027491475CD6}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -19,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{91726A
 		psake.NET.bat = psake.NET.bat
 		tasks.ps1 = tasks.ps1
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigLoader.UnitTests", "ConfigLoader.UnitTests\ConfigLoader.UnitTests.csproj", "{E1ACAFA7-76B4-4688-9122-C48AFD3BEC44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

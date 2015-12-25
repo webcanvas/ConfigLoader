@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$id$</title>
+		<authors>Chris Kolenko</authors>
+		<licenseUrl>https://github.com/webcanvas/ConfigLoader/blob/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/webcanvas/ConfigLoader</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<summary>A utility class to load configs via a convention for .NET</summary>
+		<description>This utility will use reflection to fill a classes properties from a web or app config file, json files passed into the loader class, but most importantly environment variables. Useful for decoupling from config files and test projects.</description>
+		<developmentDependency>true</developmentDependency>
+		<tags>Configuration Config</tags>
+		<dependencies>
+			<dependency id="Newtonsoft.Json" version="7.0.1" />
+		</dependencies>
+	</metadata>
+</package>

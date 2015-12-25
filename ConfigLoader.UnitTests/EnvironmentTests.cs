@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConfigLoader.Tests
+namespace ConfigLoader.UnitTests
 {
     [TestFixture]
     public class EnvironmentTests
@@ -32,7 +32,7 @@ namespace ConfigLoader.Tests
 
             Assert.IsNotNull(config);
             Assert.AreEqual("done!", config.DB);
-            Assert.IsNull(config.DBDriver);
+            Assert.AreNotEqual("done!!", config.DBDriver);
         }
     }
 }

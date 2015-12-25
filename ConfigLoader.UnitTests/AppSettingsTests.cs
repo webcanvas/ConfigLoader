@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConfigLoader.Tests
+namespace ConfigLoader.UnitTests
 {
     [TestFixture]
     public class AppSettingsTests
@@ -22,6 +22,7 @@ namespace ConfigLoader.Tests
             Assert.IsNotNull(config);
             Assert.AreEqual("something!", config.DB);
             Assert.AreEqual("something!!", config.DBDriver);
+            Assert.AreEqual("something!!!", config.Setting1);
         }
     }
 }
