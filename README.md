@@ -2,6 +2,7 @@
 Uses reflection with some conventions to load settings from web or app configs, json files and more importantly environment variables.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/udshi1cj8aq8y1xd/branch/master?svg=true)](https://ci.appveyor.com/project/chriskolenko/configloader/branch/master)
+[![Coverage Status](https://coveralls.io/repos/webcanvas/ConfigLoader/badge.svg?branch=master&service=github)](https://coveralls.io/github/webcanvas/ConfigLoader?branch=master)
 
 ||Stable|Pre-release|
 |:--:|:--:|:--:|
