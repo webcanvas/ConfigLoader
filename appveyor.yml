@@ -1,0 +1,44 @@
+# Configuration for "master" branch
+-
+  artifacts:
+    - path: .build\output\*.nupkg
+  branches:
+    only:
+      - master
+  build_script:
+    - psake.NET Version-BuildServer, Clean, Pack-Nuspec, Test, Tag, Push, Push-Tag
+  deploy: off
+  environment:
+    github_access_token:
+      secure: gArCCgfwfRSbJ4aI5jidek7/NHPLQQbKenywFpan4QwhkTAr4RPx2sKq1MEWL9Wq
+    PSAKE_NET_NUGET_API_KEY:
+      secure: zA+kpGYRXyC/b/zfaoeGec4jTl+Ahc6hLbIeOoZL2hPjp/3M5jPhyD8awfjU5s+6
+  install:
+    # To allow the build scripts to commit and push changes to the remote repository
+    # http://www.appveyor.com/docs/how-to/git-push
+    - git config --global credential.helper store
+    - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:github_access_token):x-oauth-basic@github.com`n"
+    - git remote rm origin
+    - git remote add origin https://github.com/lsgroi/psake.NET.git
+  os: Windows Server 2012 R2
+  skip_tags: true
+  test: off
+  version: '{build}'
+
+# Configuration for "beta" branch
+-
+  artifacts:
+    - path: .build\output\*.nupkg
+  branches:
+    only:
+      - beta
+  build_script:
+    - psake.NET Version-BuildServer, Clean, Pack-Nuspec, Test, Push
+  deploy: off
+  environment:
+    PSAKE_NET_NUGET_API_KEY:
+      secure: zA+kpGYRXyC/b/zfaoeGec4jTl+Ahc6hLbIeOoZL2hPjp/3M5jPhyD8awfjU5s+6
+  os: Windows Server 2012 R2
+  skip_tags: true
+  test: off
+  version: '{build}'
