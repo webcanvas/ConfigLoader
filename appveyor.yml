@@ -7,7 +7,7 @@
       - master
       - beta
   build_script:
-    - psake.NET Version-BuildServer, Clean, Build, Test, Pack-Nuspec, Tag, Push, Push-Tag, Send-OpenCoverResultToCoveralls
+    - psake.NET Version-BuildServer, Clean, Build, Test, Pack-Nuspec, Tag, Push-Tag, Send-OpenCoverResultToCoveralls, Push
   deploy: off
   environment:
     github_access_token:
