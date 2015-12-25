@@ -23,7 +23,7 @@ install:
   - git config --global credential.helper store
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:github_access_token):x-oauth-basic@github.com`n"
   - git remote rm origin
-  - git remote add origin https://github.com/lsgroi/psake.NET.git
+  - git remote add origin https://github.com/webcanvas/ConfigLoader.git
 
 build_script:
   - psake.NET Version-BuildServer, Clean, Build, Pack-Nuspec
