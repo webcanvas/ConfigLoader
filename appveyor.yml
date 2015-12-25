@@ -1,29 +1,42 @@
-# Configuration for "master" branch
--
-  artifacts:
-    - path: .build\output\*.nupkg
-  branches:
-    only:
-      - master
-      - beta
-  build_script:
-    - psake.NET Version-BuildServer, Clean, Build, Test, Pack-Nuspec, Tag, Push-Tag, Send-OpenCoverResultToCoveralls, Push
-  deploy: off
-  environment:
-    github_access_token:
-      secure: gArCCgfwfRSbJ4aI5jidek7/NHPLQQbKenywFpan4QwhkTAr4RPx2sKq1MEWL9Wq
-    PSAKE_NET_NUGET_API_KEY:
-      secure: wHQUhfUGCLgvoVZaZ/j8ds7vg6Xiie5db9hWHBlbzq9GX5oV9bfzs+pnGWqG9y3y
-    PSAKE_NET_COVERALLS_REPO_TOKEN:
-      secure: /NPOc9rqA6sUiWy7LC/lbgb6DAuT9zhEp7oZUT6aOy0YaJpKKPruTV9Q732zpYm/
-  install:
-    # To allow the build scripts to commit and push changes to the remote repository
-    # http://www.appveyor.com/docs/how-to/git-push
-    - git config --global credential.helper store
-    - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:github_access_token):x-oauth-basic@github.com`n"
-    - git remote rm origin
-    - git remote add origin https://github.com/lsgroi/psake.NET.git
-  os: Windows Server 2012 R2
-  skip_tags: true
-  test: off
-  version: '{build}'
+version: '{build}'
+
+branches:
+only:
+  - master
+  - beta
+
+skip_tags: true
+
+os: Windows Server 2012 R2
+
+environment:
+  github_access_token:
+    secure: gArCCgfwfRSbJ4aI5jidek7/NHPLQQbKenywFpan4QwhkTAr4RPx2sKq1MEWL9Wq
+  PSAKE_NET_NUGET_API_KEY:
+    secure: wHQUhfUGCLgvoVZaZ/j8ds7vg6Xiie5db9hWHBlbzq9GX5oV9bfzs+pnGWqG9y3y
+  PSAKE_NET_COVERALLS_REPO_TOKEN:
+    secure: /NPOc9rqA6sUiWy7LC/lbgb6DAuT9zhEp7oZUT6aOy0YaJpKKPruTV9Q732zpYm/
+
+install:
+  # To allow the build scripts to commit and push changes to the remote repository
+  # http://www.appveyor.com/docs/how-to/git-push
+  - git config --global credential.helper store
+  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:github_access_token):x-oauth-basic@github.com`n"
+  - git remote rm origin
+  - git remote add origin https://github.com/lsgroi/psake.NET.git
+
+build_script:
+  - psake.NET Version-BuildServer, Clean, Build, Pack-Nuspec
+
+test_script:
+  - psake.NET Test
+
+after_test:
+  - ps: "$wc = New-Object 'System.Net.WebClient'"
+  - ps: '$wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit3/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\.build\output\TestResults\NUnit.xml))'
+
+artifacts:
+  - path: .build\output\*.nupkg
+
+deploy_script:
+  - psake.NET Tag, Push-Tag, Send-OpenCoverResultToCoveralls, Push
