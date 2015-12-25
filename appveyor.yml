@@ -12,7 +12,7 @@
     github_access_token:
       secure: gArCCgfwfRSbJ4aI5jidek7/NHPLQQbKenywFpan4QwhkTAr4RPx2sKq1MEWL9Wq
     PSAKE_NET_NUGET_API_KEY:
-      secure: zA+kpGYRXyC/b/zfaoeGec4jTl+Ahc6hLbIeOoZL2hPjp/3M5jPhyD8awfjU5s+6
+      secure: wHQUhfUGCLgvoVZaZ/j8ds7vg6Xiie5db9hWHBlbzq9GX5oV9bfzs+pnGWqG9y3y
   install:
     # To allow the build scripts to commit and push changes to the remote repository
     # http://www.appveyor.com/docs/how-to/git-push
@@ -37,7 +37,7 @@
   deploy: off
   environment:
     PSAKE_NET_NUGET_API_KEY:
-      secure: zA+kpGYRXyC/b/zfaoeGec4jTl+Ahc6hLbIeOoZL2hPjp/3M5jPhyD8awfjU5s+6
+      secure: wHQUhfUGCLgvoVZaZ/j8ds7vg6Xiie5db9hWHBlbzq9GX5oV9bfzs+pnGWqG9y3y
   os: Windows Server 2012 R2
   skip_tags: true
   test: off

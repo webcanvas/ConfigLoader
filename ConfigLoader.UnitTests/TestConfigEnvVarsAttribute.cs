@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConfigLoader.Tests
+namespace ConfigLoader.UnitTests
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class TestConfigEnvVarsAttribute : Attribute, ITestAction

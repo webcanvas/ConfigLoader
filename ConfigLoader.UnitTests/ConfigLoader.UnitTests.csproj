@@ -7,8 +7,8 @@
     <ProjectGuid>{E1ACAFA7-76B4-4688-9122-C48AFD3BEC44}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConfigLoader.Tests</RootNamespace>
-    <AssemblyName>ConfigLoader.Tests</AssemblyName>
+    <RootNamespace>ConfigLoader.UnitTests</RootNamespace>
+    <AssemblyName>ConfigLoader.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>6610b08a</NuGetPackageImportStamp>
