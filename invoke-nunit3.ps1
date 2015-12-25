@@ -18,7 +18,5 @@ function Invoke-NUnitTests {
     } else {
       exec { & $nunit "$assemblies" --work="$test_results_dir" --result="NUnit.xml" --framework="net-$framework_version" --noh }
     }
-
-    Write-Host "Did we get here?"
   }
 }
