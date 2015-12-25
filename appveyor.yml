@@ -6,7 +6,7 @@
     only:
       - master
   build_script:
-    - psake.NET Version-BuildServer, Clean, Pack-Nuspec, Test, Tag, Push, Push-Tag
+    - psake.NET Version-BuildServer, Clean, Build, Test, Pack-Nuspec, Tag, Push, Push-Tag
   deploy: off
   environment:
     github_access_token:
@@ -33,7 +33,7 @@
     only:
       - beta
   build_script:
-    - psake.NET Version-BuildServer, Clean, Pack-Nuspec, Test, Push
+    - psake.NET Version-BuildServer, Clean, Build, Test, Pack-Nuspec, Push
   deploy: off
   environment:
     PSAKE_NET_NUGET_API_KEY:
