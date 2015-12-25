@@ -1,9 +1,9 @@
 version: '{build}'
 
 branches:
-only:
-  - master
-  - beta
+  only:
+    - master
+    - beta
 
 skip_tags: true
 
