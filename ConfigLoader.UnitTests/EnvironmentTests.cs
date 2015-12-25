@@ -32,7 +32,7 @@ namespace ConfigLoader.UnitTests
 
             Assert.IsNotNull(config);
             Assert.AreEqual("done!", config.DB);
-            Assert.IsNull(config.DBDriver);
+            Assert.AreNotEqual("done!!", config.DBDriver);
         }
     }
 }

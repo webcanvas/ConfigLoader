@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -12,64 +13,115 @@ namespace ConfigLoader
 
     public static class ConfigLoader
     {
+        private static bool IsValidProperty(PropertyInfo property)
+        {
+            var t = property.PropertyType;
+
+            // We only want to support strings and primatives.
+            return t.IsPrimitive || t.IsValueType || t == typeof(string);
+        }
+
+        private static string GetValueFromConfig(string key)
+        {
+            // we have a default convention for databases. They start with DB.
+            // this could be DB, DBDriver, DB_{key}, DBDriver_{key}
+            // if it's DB or DBDriver use the last index.
+            if (key.Equals("DB"))
+            {
+                // get the connection string for the last index.
+                var index = ConfigurationManager.ConnectionStrings.Count - 1;
+                var conn = ConfigurationManager.ConnectionStrings[index];
+                return conn == null ? null : conn.ConnectionString;
+            }
+            else if (key.Equals("DBDriver"))
+            {
+                // get the provider from the last index
+                var index = ConfigurationManager.ConnectionStrings.Count - 1;
+                var conn = ConfigurationManager.ConnectionStrings[index];
+                return conn == null ? null : conn.ProviderName;
+            }
+            else if (key.StartsWith("DB_"))
+            {
+                // get the key
+                var sub = key.Substring(3);
+                var conn = ConfigurationManager.ConnectionStrings[sub];
+                return conn == null ? null : conn.ConnectionString;
+            }
+            else if (key.StartsWith("DBDriver_"))
+            {
+                // get the key
+                var sub = key.Substring(9);
+                var conn = ConfigurationManager.ConnectionStrings[sub];
+                return conn == null ? null : conn.ProviderName;
+            }
+
+            // It's not a database convention.. just go direct to app settings
+            return ConfigurationManager.AppSettings[key];
+        }
+
+        // We don't know if the path is absolute or not. But we do need one.
+        private static string GetPhysicalPath(string path)
+        {
+            if (Path.IsPathRooted(path)) return path;
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
+        }
+
         public static T LoadConfig<T>(params string[] configFiles) where T : class, new()
         {
             // create a new obj
             var config = new T();
+
+            // get the properties via reflection
+            var properties = typeof(T)
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(IsValidProperty);
+
+            // try to find the properties from the web/app config
+            foreach (var prop in properties)
+            {
+                var t = prop.PropertyType;
+                var key = prop.Name;
+
+                // get the value from the configuration file
+                var value = GetValueFromConfig(key);
+
+                // if we don't have a value return
+                if (value == null) continue;
+
+                // convert the value.
+                var val = Convert.ChangeType(value, t);
+
+                // set the value
+                prop.SetValue(config, val);
+            }
 
             // populate from json configs
             foreach (var configFile in configFiles)
             {
                 // try load the file.
                 // Below could throw an exception. Maybe in the future handle this better.
-                var contents = File.ReadAllText(configFile);
+                var path = GetPhysicalPath(configFile);
+                var contents = File.ReadAllText(path);
                 JsonConvert.PopulateObject(contents, config);
             }
-
-            // get the properties via reflection
-            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             // try to fill all properties!
             foreach (var prop in properties)
             {
                 var t = prop.PropertyType;
-
-                // We only want to support strings and primatives.
-                if (!t.IsPrimitive && !t.IsValueType && t != typeof(string))
-                {
-                    // the value is not supported. 
-                    continue;
-                }
-
-                // try getting it from the local config file. 
-                // TODO maybe we shouldn't be using this if the value has been set. 
-                // Easiest thing to do is loop through the props twice once before config files and here.
-
-                // if it starts with DB (TODO Maybe check for case). Then get it from the connection strings. 
-                if (prop.Name.StartsWith("DB"))
-                {
-                    // woot. connection string. 
-                }
-                else
-                {
-                    // get it from the app settings.
-                }
+                var key = prop.Name;
 
                 // try to load the environment variable for the property. 
-                var variable = Environment.GetEnvironmentVariable(prop.Name);
+                var variable = Environment.GetEnvironmentVariable(key);
 
                 // if the value is null don't do anything
-                if (variable == null)
-                {
-                    continue;
-                }
+                if (variable == null) continue;
 
                 // convert the value.
                 var val = Convert.ChangeType(variable, t);
 
                 // set the value
                 prop.SetValue(config, val);
-
             }
 
             return config;

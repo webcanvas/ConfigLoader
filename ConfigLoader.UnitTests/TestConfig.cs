@@ -10,5 +10,6 @@ namespace ConfigLoader.UnitTests
     {
         public string DB { get; set; }
         public string DBDriver { get; set; }
+        public string Setting1 { get; set; }
     }
 }
