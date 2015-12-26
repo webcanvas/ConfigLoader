@@ -14,7 +14,7 @@ namespace ConfigLoader.UnitTests
         public void CanLoadFromFile()
         {
             // lets get the configuration values.
-            var config = ConfigLoader.LoadConfig<TestConfig>(".\\testdata.json");
+            var config = Config.New<TestConfig>(".\\testdata.json");
 
             Assert.IsNotNull(config);
             Assert.AreEqual("full!", config.DB);

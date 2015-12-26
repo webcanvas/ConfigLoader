@@ -11,6 +11,6 @@ Uses reflection with some conventions to load settings from web or app configs, 
 ## Usage
 
 ```C#
-var config = ConfigLoader.LoadConfig<TestConfig>(".\\testdata.json");
-var config2 = ConfigLoader.LoadConfig<TestConfig>();
+var config = Config.New<TestConfig>(".\\testdata.json");
+var config2 = Config.New<TestConfig>();
 ```

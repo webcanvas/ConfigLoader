@@ -14,7 +14,7 @@ namespace ConfigLoader.UnitTests
         public void CanLoadFromEnv()
         {
             // lets get the configuration values.
-            var config = ConfigLoader.LoadConfig<TestConfig>();
+            var config = Config.New<TestConfig>();
 
             Assert.IsNotNull(config);
             Assert.AreEqual("done!", config.DB);
@@ -28,7 +28,7 @@ namespace ConfigLoader.UnitTests
             Environment.SetEnvironmentVariable("DBDriver", "");
 
             // lets get the configuration values.
-            var config = ConfigLoader.LoadConfig<TestConfig>();
+            var config = Config.New<TestConfig>();
 
             Assert.IsNotNull(config);
             Assert.AreEqual("done!", config.DB);

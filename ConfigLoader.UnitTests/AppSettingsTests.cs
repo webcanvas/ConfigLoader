@@ -17,7 +17,7 @@ namespace ConfigLoader.UnitTests
             // IE.. if it looks like a database then load it from the connection strings. 
 
             // lets get the configuration values.
-            var config = ConfigLoader.LoadConfig<TestConfig>();
+            var config = Config.New<TestConfig>();
 
             Assert.IsNotNull(config);
             Assert.AreEqual("something!", config.DB);
