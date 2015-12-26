@@ -26,7 +26,8 @@ install:
   - git remote add origin https://github.com/webcanvas/ConfigLoader.git
 
 build_script:
-  - psake.NET Version-BuildServer, Clean, Build, Pack-Nuspec
+  - psake.NET Version-BuildServer, Clean, Build -properties @{'config'='Release-Net40';'output_dir_name'='obj\psake_NET_build_output_net40'}
+  - psake.NET Build, Pack-Nuspec -properties @{'config'='Release-Net45';'output_dir_name'='obj\psake_NET_build_output_net45'}
 
 test_script:
   - psake.NET Test

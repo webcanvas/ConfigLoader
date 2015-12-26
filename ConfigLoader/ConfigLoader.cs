@@ -92,7 +92,7 @@ namespace ConfigLoader
                 var val = Convert.ChangeType(value, t);
 
                 // set the value
-                prop.SetValue(config, val);
+                prop.SetValue(config, val, null);
             }
 
             // populate from json configs
@@ -121,7 +121,7 @@ namespace ConfigLoader
                 var val = Convert.ChangeType(variable, t);
 
                 // set the value
-                prop.SetValue(config, val);
+                prop.SetValue(config, val, null);
             }
 
             return config;

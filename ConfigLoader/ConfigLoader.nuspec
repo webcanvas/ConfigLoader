@@ -15,5 +15,16 @@
 		<dependencies>
 			<dependency id="Newtonsoft.Json" version="7.0.1" />
 		</dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Core" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="System.configuration" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.configuration" targetFramework=".NETFramework4.5" />
+    </frameworkAssemblies>
 	</metadata>
+  <files>
+    <file src="obj\psake_NET_build_output_net40\$id$.*" target="lib\net40" />
+    <file src="obj\psake_NET_build_output_net45\$id$.*" target="lib\net45" />
+    <file src="**\*.cs" target="src" />
+  </files>
 </package>
